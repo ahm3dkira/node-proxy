@@ -11,7 +11,8 @@ app.use('/', (req, res, next) => {
     console.log(`redirecting to ${req.url}`);
     next();
 });
-
-app.use('/', createProxyMiddleware({ target: process.env.PROXT_HOST, changeOrigin: true }));
+const target = process.env.PROXY_HOST || 'http://ahmedkira.com'
+console.log(target)
+app.use('/', createProxyMiddleware({ target: target, changeOrigin: true }));
 
 app.listen(process.env.PORT || 5000);
