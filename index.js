@@ -12,7 +12,7 @@ app.use('/', (req, res, next) => {
     next();
 });
 const target = process.env.PROXY_HOST || 'https://ahmedkira.com'
-console.log(target)
+console.log("http://localhost:" + (process.env.PORT || 5000) + " -> " + target)
 app.use('/', createProxyMiddleware({ target: target, changeOrigin: true }));
 
 app.listen(process.env.PORT || 5000);
