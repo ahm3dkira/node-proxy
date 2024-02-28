@@ -15,10 +15,12 @@ const target = process.env.PROXY_HOST || 'https://ahmedkira.com'
 console.log("http://localhost:" + (process.env.PORT || 5000) + " -> " + target)
 app.use('/', createProxyMiddleware({ target: target, changeOrigin: true }));
 
-app.listen(process.env.PORT || 5000);
+const server = app.listen(process.env.PORT || 5000);
 
-process.on('SIGINT', function() {
+process.on('SIGINT', () => {
     console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
     // some other closing procedures go here
-    process.exit(0);
+    server.close(() => {
+        process.exit(0);
+    });
 });
